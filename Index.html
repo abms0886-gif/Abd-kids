@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Kids - تعلم الحروف</title>
+<style>
+  body { font-family: sans-serif; text-align: center; background: #FFF7E6; margin: 0; padding: 20px; }
+  h1 { color: #FF6B6B; font-size: 2.5em; }
+  p { color: #555; font-size: 1.2em; }
+  .letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 12px; max-width: 800px; margin: 20px auto; }
+  .letter { background: white; border-radius: 20px; padding: 20px 10px; font-size: 2em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.2s; border: 3px solid transparent; }
+  .letter:hover { transform: scale(1.1); border-color: #FFD93D; }
+  .word { margin-top: 20px; font-size: 1.5em; background: #6BCB77; color: white; padding: 15px; border-radius: 15px; display: inline-block; min-width: 200px; }
+</style>
+</head>
+<body>
+<h1>🔤 ABC Kids</h1>
+<p>اضغط على أي حرف لتتعلم اسمه وكلمة عليه!</p>
+<div class="letters" id="letters"></div>
+<div class="word" id="word">اختر حرفا 👆</div>
+
+<script>
+const data = {
+  A:'🍎 Apple - تفاحة', B:'🍌 Banana - موزة', C:'🐱 Cat - قطة',
+  D:'🐶 Dog - كلب', E:'🐘 Elephant - فيل', F:'🐟 Fish - سمكة',
+  G:'🍇 Grapes - عنب', H:'🏠 House - بيت', I:'🍦 Ice cream - آيس كريم',
+  J:'🧃 Juice - عصير', K:'🪁 Kite - طائرة ورقية', L:'🦁 Lion - أسد',
+  M:'🐒 Monkey - قرد', N:'🥜 Nuts - مكسرات', O:'🐙 Octopus - أخطبوط',
+  P:'🐷 Pig - خنزير', Q:'👸 Queen - ملكة', R:'🌹 Rose - وردة',
+  S:'☀️ Sun - شمس', T:'🐯 Tiger - نمر', U:'☂️ Umbrella - مظلة',
+  V:'🎻 Violin - كمان', W:'🍉 Watermelon - بطيخ', X:'❌ Xylophone - إكسيليفون',
+  Y:'🪀 Yo-yo - يويو', Z:'🦓 Zebra - حمار وحشي'
+};
+const container = document.getElementById('letters');
+const wordDiv = document.getElementById('word');
+Object.keys(data).forEach(letter => {
+  const div = document.createElement('div');
+  div.className = 'letter';
+  div.textContent = letter;
+  div.style.background = `hsl(${Math.random()*360}, 80%, 85%)`;
+  div.onclick = () => {
+    wordDiv.textContent = letter + " : " + data[letter];
+    speechSynthesis.cancel();
+    speechSynthesis.speak(new SpeechSynthesisUtterance(letter + ". " + data[letter].split(' - ')[1]));
+  };
+  container.appendChild(div);
+});
+</script>
+</body>
+                               </html>
